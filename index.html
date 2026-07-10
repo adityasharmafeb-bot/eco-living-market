@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Eco Living Market</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#f5f7f8;
+color:#222;
+}
+
+header{
+background:#0f172a;
+color:white;
+padding:20px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+}
+
+.hero{
+padding:100px 8%;
+text-align:center;
+background:linear-gradient(to right,#dff6e3,#f7fff8);
+}
+
+.hero h1{
+font-size:52px;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:20px;
+margin-bottom:25px;
+}
+
+.btn{
+background:#16a34a;
+color:white;
+padding:12px 24px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.section{
+padding:70px 8%;
+}
+
+.section-title{
+text-align:center;
+margin-bottom:40px;
+font-size:36px;
+}
+
+.categories{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.category{
+background:white;
+padding:40px;
+text-align:center;
+border-radius:12px;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+
+.product-img{
+height:200px;
+background:#e7ecef;
+border-radius:10px;
+margin-bottom:15px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:18px;
+font-weight:bold;
+}
+
+.price{
+color:#16a34a;
+font-size:22px;
+font-weight:bold;
+margin:10px 0;
+}
+
+.newsletter{
+background:#0f172a;
+padding:70px 20px;
+text-align:center;
+color:white;
+}
+
+.newsletter input{
+width:320px;
+max-width:90%;
+padding:12px;
+margin-top:15px;
+border:none;
+border-radius:5px;
+}
+
+footer{
+background:#020617;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">Eco Living Market</div>
+
+<nav>
+<a href="#">Home</a>
+<a href="#">Shop</a>
+<a href="#">Cart</a>
+<a href="#">Checkout</a>
+</nav>
+</header>
+
+<section class="hero">
+
+<h1>Designed for Better Living</h1>
+
+<p>
+Sustainable solutions for Kitchen, Air & Climate, and Lighting.
+</p>
+
+<button class="btn">Explore Collection</button>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">Shop by Category</h2>
+
+<div class="categories">
+
+<div class="category">
+<h3>Kitchen</h3>
+<p>Practical tools built for everyday cooking.</p>
+</div>
+
+<div class="category">
+<h3>Air & Climate</h3>
+<p>Comfort-focused products for healthier spaces.</p>
+</div>
+
+<div class="category">
+<h3>Lighting</h3>
+<p>Modern lighting solutions for every room.</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">Featured Products</h2>
+
+<div class="products">
+
+<div class="card">
+<div class="product-img">EcoBlend Mixer</div>
+<h3>EcoBlend Mixer</h3>
+<p>Compact kitchen companion for daily use.</p>
+<div class="price">₹3,499</div>
+<button class="btn">Add to Cart</button>
+</div>
+
+<div class="card">
+<div class="product-img">PureFlow Air Unit</div>
+<h3>PureFlow Air Unit</h3>
+<p>Helps maintain a fresh indoor environment.</p>
+<div class="price">₹7,999</div>
+<button class="btn">Add to Cart</button>
+</div>
+
+<div class="card">
+<div class="product-img">LumaGlow Lamp</div>
+<h3>LumaGlow Lamp</h3>
+<p>Minimal lighting designed for modern homes.</p>
+<div class="price">₹1,999</div>
+<button class="btn">Add to Cart</button>
+</div>
+
+</div>
+
+</section>
+
+<section class="newsletter">
+
+<h2>Join Our Newsletter</h2>
+
+<p>
+Receive updates on new arrivals and seasonal offers.
+</p>
+
+<input type="email" placeholder="Enter your email">
+
+<br><br>
+
+<button class="btn">Subscribe</button>
+
+</section>
+
+<footer>
+
+<p>
+© 2026 Eco Living Market. All rights reserved.
+</p>
+
+</footer>
+
+</body>
+</html>
