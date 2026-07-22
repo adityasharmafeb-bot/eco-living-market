@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!--
+  HOW TO USE THIS FILE — read this before publishing, then delete this comment block.
+
+  1. Drop your screenshots into an /assets folder next to this file, named to match
+     the placeholders below (or rename the placeholders to match your files).
+  2. Find every <div class="shot"> block and replace it with:
+       <img src="assets/your-file.png" alt="...">
+     (keep the alt text, just point src at your real file)
+  3. Search for "EDIT:" — those are the spots with placeholder numbers/claims you
+     need to confirm against your actual GA4 setup before this goes live. If your
+     event chain, conversion event, or funnel numbers differ, update the text there.
+  4. Swap the placeholder links in the header/footer (Live site, GitHub repo).
+  5. Rename the file to index.html if this is the only page in the repo, or link to
+     it from your main portfolio page if you're adding Urbane Home alongside it.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eco Living Market — GA4 & GTM Case Study | Aditya Sharma</title>
+<meta name="description" content="A demo e-commerce site instrumented end-to-end in GA4 and GTM, built to practice performance marketing analytics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3F4EE;
+    --surface:#FFFFFF;
+    --ink:#16233A;
+    --ink-soft:#4B5768;
+    --line:#D9DCD0;
+    --signal:#E8542D;
+    --signal-dark:#B33E1E;
+    --measure:#157A6B;
+    --measure-soft:#E4F1EC;
+    --signal-soft:#FBEAE3;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:48px 48px;
+    background-position:-1px -1px;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px;}
+  a{color:var(--signal-dark);}
+
+  header.site{
+    position:sticky;top:0;z-index:20;
+    background:rgba(243,244,238,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  header.site .bar{
+    max-width:920px;margin:0 auto;padding:14px 28px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  header.site .who{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;letter-spacing:0.01em;}
+  header.site .who span{color:var(--signal);}
+  header.site nav{display:flex;gap:20px;flex-wrap:wrap;}
+  header.site nav a{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;text-decoration:none;color:var(--ink-soft);
+    border-bottom:1px solid transparent;
+  }
+  header.site nav a:hover{color:var(--signal-dark);border-bottom-color:var(--signal-dark);}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.06em;
+    text-transform:lowercase;
+    color:var(--measure);
+    background:var(--measure-soft);
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:3px;
+    margin-bottom:14px;
+  }
+
+  .hero{padding:72px 0 40px;}
+  .hero h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(30px,4.4vw,46px);
+    line-height:1.12;
+    margin:0 0 18px;
+    max-width:11.5ch;
+  }
+  .hero h1 em{font-style:normal;color:var(--signal);}
+  .hero p.sub{
+    font-size:17px;color:var(--ink-soft);max-width:56ch;margin:0 0 28px;
+  }
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px;}
+  .badge{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;
+    border:1px solid var(--line);background:var(--surface);
+    padding:5px 10px;border-radius:20px;color:var(--ink-soft);
+  }
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;text-decoration:none;
+    padding:10px 18px;border-radius:3px;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn.primary{background:var(--ink);color:var(--paper);}
+  .btn.primary:hover{background:var(--signal-dark);}
+  .btn.ghost{border:1px solid var(--ink);color:var(--ink);}
+  .btn.ghost:hover{border-color:var(--signal-dark);color:var(--signal-dark);}
+
+  /* signature: signal trace through the funnel */
+  .trace-wrap{margin:44px 0 8px;}
+  .trace-wrap svg{width:100%;height:auto;display:block;}
+  .trace-line{fill:none;stroke:var(--line);stroke-width:2;}
+  .trace-node circle{fill:var(--surface);stroke:var(--ink-soft);stroke-width:1.5;}
+  .trace-node text{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;fill:var(--ink-soft);
+  }
+  .pulse{fill:var(--signal);}
+  @keyframes travel{
+    0%{offset-distance:0%;}
+    100%{offset-distance:100%;}
+  }
+  .pulse-dot{
+    offset-path:path('M10,30 L790,30');
+    animation:travel 4.5s linear infinite;
+  }
+  @media (prefers-reduced-motion:reduce){
+    .pulse-dot{animation:none;offset-distance:0%;}
+  }
+
+  section{padding:52px 0;border-top:1px solid var(--line);}
+  section.first{border-top:none;padding-top:0;}
+  h2{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;margin:0 0 18px;
+  }
+  section p{max-width:66ch;color:var(--ink-soft);font-size:15.5px;}
+  section p strong{color:var(--ink);font-weight:600;}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+  @media (max-width:680px){.two-col{grid-template-columns:1fr;}}
+  .panel{
+    background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:22px 24px;
+  }
+  .panel h3{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;text-transform:lowercase;
+    color:var(--measure);margin:0 0 14px;letter-spacing:0.02em;
+  }
+  .panel ul{margin:0;padding-left:18px;}
+  .panel li{font-size:14.5px;color:var(--ink-soft);margin-bottom:8px;}
+  .panel li code{
+    font-family:'IBM Plex Mono',monospace;background:var(--paper);border:1px solid var(--line);
+    padding:1px 5px;border-radius:3px;color:var(--ink);font-size:12.5px;
+  }
+
+  .shot-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px;}
+  @media (max-width:680px){.shot-grid{grid-template-columns:1fr;}}
+  figure{margin:0;}
+  .shot{
+    aspect-ratio:16/10;
+    border:1.5px dashed var(--line);
+    border-radius:6px;
+    background:var(--surface);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    color:var(--ink-soft);
+  }
+  .shot .tag{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;background:var(--paper);
+    border:1px solid var(--line);padding:3px 9px;border-radius:20px;
+  }
+  .shot .hint{font-size:12px;max-width:70%;text-align:center;}
+  .shot-grid img{
+    width:100%;display:block;border-radius:6px;border:1px solid var(--line);
+    aspect-ratio:16/10;object-fit:cover;object-position:top;
+  }
+  figcaption{font-size:13.5px;color:var(--ink-soft);margin-top:10px;}
+  figcaption strong{color:var(--ink);}
+
+  .site-shots{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px;}
+  @media (max-width:680px){.site-shots{grid-template-columns:1fr;}}
+  .site-shots img{
+    width:100%;display:block;border-radius:6px;border:1px solid var(--line);
+    aspect-ratio:16/10;object-fit:cover;object-position:top;
+  }
+
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px;}
+  @media (max-width:680px){.stat-row{grid-template-columns:1fr;}}
+  .stat{background:var(--signal-soft);border-radius:6px;padding:18px 20px;}
+  .stat .n{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:28px;color:var(--signal-dark);}
+  .stat .l{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);margin-top:4px;}
+
+  .tie{
+    background:var(--ink);color:var(--paper);border-radius:8px;padding:28px 30px;margin-top:8px;
+  }
+  .tie p{color:#D8DEE9;font-size:15px;max-width:none;}
+  .tie strong{color:#fff;}
+
+  ol.rec{padding-left:20px;}
+  ol.rec li{margin-bottom:12px;font-size:15px;color:var(--ink-soft);}
+  ol.rec li strong{color:var(--ink);}
+
+  footer{padding:44px 0 60px;border-top:1px solid var(--line);}
+  footer .disclaimer{
+    font-size:13px;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);
+    border-radius:6px;padding:14px 18px;margin-bottom:28px;
+  }
+  footer .contact{display:flex;gap:20px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="bar">
+    <div class="who">Aditya Sharma <span>/</span> Eco Living Market</div>
+    <nav>
+      <a href="#setup">Setup</a>
+      <a href="#analysis">Analysis</a>
+      <a href="#insight">Insight</a>
+      <a href="https://adityasharmafeb-bot.github.io/eco-living-market/" target="_blank" rel="noopener">Live site ↗</a>
+      <a href="https://github.com/adityasharmafeb-bot/eco-living-market" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero first">
+    <span class="eyebrow">performance marketing / analytics case study</span>
+    <h1>I built the store.<br>Then I found <em>where</em> the funnel breaks.</h1>
+    <p class="sub">
+      Eco Living Market is a demo e-commerce site I built and connected to GA4 myself.
+      When the funnel came back with a 100% drop at purchase, I didn't treat that as a
+      UX finding — I traced it back to a specific measurement gap instead of guessing
+      at a redesign.
+    </p>
+    <div class="badges">
+      <span class="badge">GA4</span>
+      <span class="badge">Google Tag Manager</span>
+      <span class="badge">GitHub Pages</span>
+      <span class="badge">Funnel Exploration</span>
+      <span class="badge">Root-cause diagnosis</span>
+    </div>
+    <div class="cta-row">
+      <a class="btn primary" href="https://adityasharmafeb-bot.github.io/eco-living-market/" target="_blank" rel="noopener">View live site ↗</a>
+      <a class="btn ghost" href="https://github.com/adityasharmafeb-bot/eco-living-market" target="_blank" rel="noopener">View GitHub repo ↗</a>
+    </div>
+
+    <div class="trace-wrap" role="img" aria-label="Diagram of the currently tracked funnel: first open or visit, session start, screen or page view, then a break before purchase">
+      <svg viewBox="0 0 800 60" xmlns="http://www.w3.org/2000/svg">
+        <path class="trace-line" d="M10,30 L580,30"></path>
+        <path d="M580,30 L790,30" fill="none" stroke="var(--signal)" stroke-width="2" stroke-dasharray="4 5"></path>
+        <g class="trace-node">
+          <circle cx="10" cy="30" r="5"></circle>
+          <text x="10" y="50" text-anchor="middle">first_visit</text>
+        </g>
+        <g class="trace-node">
+          <circle cx="200" cy="30" r="5"></circle>
+          <text x="200" y="50" text-anchor="middle">session_start</text>
+        </g>
+        <g class="trace-node">
+          <circle cx="390" cy="30" r="5"></circle>
+          <text x="390" y="50" text-anchor="middle">page_view</text>
+        </g>
+        <g class="trace-node">
+          <circle cx="580" cy="30" r="6" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="2"></circle>
+          <text x="580" y="50" text-anchor="middle" fill="var(--signal-dark)">100% drop</text>
+        </g>
+        <g class="trace-node">
+          <circle cx="790" cy="30" r="5" stroke-dasharray="2 2"></circle>
+          <text x="790" y="46" text-anchor="end">purchase</text>
+        </g>
+        <circle class="pulse pulse-dot" r="4"></circle>
+      </svg>
+    </div>
+  </section>
+
+  <section id="problem">
+    <h2>Problem</h2>
+    <p>
+      Most entry-level marketing resumes describe tools without proving hands-on skill —
+      anyone can list "GA4" as a skill. I wanted a portfolio piece that instead
+      <strong>demonstrates the full loop</strong>: build a real interface, instrument it
+      correctly, and show the data it actually produces. Eco Living Market is that piece —
+      a self-directed exercise in setting up performance marketing measurement the way
+      an in-house analytics or media team would for a real client.
+    </p>
+  </section>
+
+  <section id="setup">
+    <h2>Setup</h2>
+    <p>What I built and configured, end to end.</p>
+    <div class="two-col">
+      <div class="panel">
+        <h3>the site</h3>
+        <ul>
+          <li>Static e-commerce demo hosted on GitHub Pages — product listing, product detail, cart, and checkout pages</li>
+          <li>Built to mirror a real D2C storefront's structure so the tracking plan below would be genuinely testable</li>
+          <li>EDIT: name the actual page count / stack here (e.g. "6 pages, HTML/CSS/JS")</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>the tracking</h3>
+        <ul>
+          <li>GA4 property connected via Measurement ID, verified through Realtime and Reports snapshot</li>
+          <li>Currently tracked: <code>first_visit</code> → <code>session_start</code> → <code>page_view</code> → <code>purchase</code> (default GA4 engagement events, <code>purchase</code> set as the key conversion event)</li>
+          <li>Funnel Exploration built and cross-checked across a 1-day and a 28-day window to confirm the pattern holds, not a one-off</li>
+          <li><strong>Next build phase:</strong> instrument <code>add_to_cart</code> and <code>begin_checkout</code> as GTM-tracked ecommerce events so the mid-funnel is actually visible</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-shots">
+      <figure>
+        <img src="assets/site-homepage-hero.png" alt="Eco Living Market homepage hero section with navigation and Explore Collection call to action">
+        <figcaption><strong>Homepage —</strong> hero section with nav to Home, Shop, Cart, and Checkout, where the tracked funnel steps below actually happen.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/site-shop-products.png" alt="Eco Living Market shop by category and featured products section with Add to Cart buttons">
+        <figcaption><strong>Product listing —</strong> Shop by Category and Featured Products, with live Add to Cart buttons — this is the interaction the next tracking phase needs to capture.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="analysis">
+    <h2>Data &amp; analysis</h2>
+    <p>
+      Each screenshot below is tied directly to a specific step in the funnel diagram
+      above — this is the proof that the tracking plan actually works, not just that it
+      was designed on paper.
+    </p>
+    <div class="shot-grid">
+      <figure>
+        <img src="assets/ga4-funnel-28day.png" alt="GA4 funnel exploration, 28-day window, showing 100% abandonment between screen/page view and purchase">
+        <figcaption><strong>Funnel exploration, 28 days —</strong> 13 users reach page view, zero reach purchase. 100% abandonment at the last step.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/ga4-funnel-1day.png" alt="GA4 funnel exploration, single day window, showing the same 100% abandonment pattern">
+        <figcaption><strong>Funnel exploration, single day —</strong> same abandonment pattern on a narrower 4-user window, confirming it isn't a one-off blip.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/ga4-reports-snapshot.png" alt="GA4 reports snapshot showing active users, event count, and bounce rate">
+        <figcaption><strong>Reports snapshot —</strong> 13 active users, 46 events, 86.7% bounce rate — the engagement context behind the funnel numbers.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/ga4-traffic-channels.png" alt="GA4 home dashboard showing traffic channels and user geography">
+        <figcaption><strong>Traffic channels —</strong> surfaced a 5-session "Paid Search" entry with no live campaign running — flagged for audit, not taken at face value.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="insight">
+    <h2>Insight</h2>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="n">13</div>
+        <div class="l">active users, 28-day window</div>
+      </div>
+      <div class="stat">
+        <div class="n">46</div>
+        <div class="l">total events logged</div>
+      </div>
+      <div class="stat">
+        <div class="n">100%</div>
+        <div class="l">abandonment at the purchase step</div>
+      </div>
+    </div>
+    <p style="margin-top:20px;">
+      The funnel shows 100% abandonment between page view and purchase across both the
+      1-day and 28-day windows. But this isn't a behavioral drop-off — it's a tracking
+      gap. The site has working Add to Cart, Cart, and Checkout pages, but GA4 is only
+      capturing default auto-collected events, not the <code style="font-family:'IBM Plex Mono',monospace;background:var(--paper);border:1px solid var(--line);padding:1px 5px;border-radius:3px;">add_to_cart</code> /
+      <code style="font-family:'IBM Plex Mono',monospace;background:var(--paper);border:1px solid var(--line);padding:1px 5px;border-radius:3px;">begin_checkout</code> ecommerce events needed to see where in the mid-funnel users
+      actually are. Separately, the traffic channel report shows 5 Paid Search sessions
+      I can't yet explain, since no live campaign is running — flagged for audit rather
+      than cited as a real acquisition channel.
+    </p>
+  </section>
+
+  <section id="recommendation">
+    <h2>Recommendation</h2>
+    <p>What I'd act on next if this were a live store, based on the data above:</p>
+    <ol class="rec">
+      <li><strong>Instrument the missing mid-funnel events first</strong> — add <code style="font-family:'IBM Plex Mono',monospace;background:var(--paper);border:1px solid var(--line);padding:1px 5px;border-radius:3px;">add_to_cart</code> and <code style="font-family:'IBM Plex Mono',monospace;background:var(--paper);border:1px solid var(--line);padding:1px 5px;border-radius:3px;">begin_checkout</code> as real GTM-tracked ecommerce events before drawing any behavioral conclusions. This is a tracking fix, not a UX fix.</li>
+      <li><strong>Audit the Paid Search entry</strong> in Traffic Acquisition — with no live campaign running, it likely reflects GA4's default channel grouping misclassifying referral or direct traffic. Confirm before citing it as a real source.</li>
+      <li><strong>Re-run the funnel once mid-funnel events are live</strong>, then decide whether the real leak point calls for a CTA/UX fix or an acquisition fix — the data doesn't support either conclusion yet.</li>
+    </ol>
+  </section>
+
+  <section class="tie">
+    <h2 style="color:#fff;">How this proves the skill</h2>
+    <p>
+      I built every page shown here — including the Cart and Checkout pages — and
+      connected the GA4 property myself. When the funnel came back at 100% abandonment,
+      I didn't take that as a UX finding. I checked what was actually being tracked,
+      found the mid-funnel ecommerce events weren't instrumented yet, and traced the
+      number back to a measurement gap instead of guessing at a redesign. I also caught
+      a channel discrepancy in my own data — 5 Paid Search sessions with no live
+      campaign running — and flagged it as unverified rather than citing it as fact.
+      That's the loop a performance marketing analyst runs on real client data: don't
+      trust a number until you know why it's there.
+    </p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div class="disclaimer">
+    Demo e-commerce site built to practice GA4 / GTM implementation for a performance
+    marketing portfolio — not a live business.
+  </div>
+  <div class="contact">
+    <span>adityasharmafeb@gmail.com</span>
+    <a href="https://linkedin.com/in/adityasharma84" target="_blank" rel="noopener">linkedin.com/in/adityasharma84</a>
+  </div>
+</footer>
+
+</body>
+</html>
